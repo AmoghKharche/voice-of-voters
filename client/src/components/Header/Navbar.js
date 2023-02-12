@@ -1,8 +1,8 @@
-import React from "react";
-import "./Navbar.css";
-import { Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.css";
-import weblogo from "../Header/weblogo.png";
+import React from 'react'
+import './Navbar.css'
+import { Link } from 'react-router-dom'
+import 'bootstrap/dist/css/bootstrap.css'
+import weblogo from '../Header/weblogo.png'
 
 function Navbar() {
   return (
@@ -35,10 +35,10 @@ function Navbar() {
             </li>
             <li className="nav-item stroke">
               <Link
-                to="/feedback"
+                to="/announcements"
                 className="nav-link hover-underline-animation"
               >
-                Feedback
+                Announcements
               </Link>
             </li>
             <li className="nav-item dropdown">
@@ -85,7 +85,7 @@ function Navbar() {
         </div>
       </div>
     </nav>
-  );
+  )
 }
 
-export default Navbar;
+export default Navbar
