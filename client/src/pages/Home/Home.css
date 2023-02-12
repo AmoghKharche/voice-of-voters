@@ -1,0 +1,46 @@
+.main-icon-container{
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.icon-container {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    align-items: center;
+    width: 50%;
+  
+  }
+  .icon-container2{
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 50px;
+    width: 50%;
+  }
+
+  .icon-box {
+    text-align: center;
+    
+    
+  }
+  
+  .icon-box i {
+    color: blue;
+    margin-bottom: 10px;
+  }
+
+ .icon-text{
+    margin-top: 5vh;
+ }
+
+ .heading{
+    margin-top: 10vh;
+    text-align: center;
+    text-transform: uppercase;
+ }
+
+ .road{
+    height: 80px;
+    width: 85px;
+ }

@@ -1,0 +1,21 @@
+.col
+{
+
+
+}
+.no-borderr{
+    border-width: 1px;
+    box-shadow: none;
+
+  }
+
+.small {
+   
+    margin-top: 40px;
+}
+
+.login-button{
+    margin-bottom: 25px;
+   
+    font-size: 25px;
+}
