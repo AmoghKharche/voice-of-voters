@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
 
-const uuid = require("uuid");
-const uid = uuid.v4();
-console.log(uid);
+const uid = crypto.getRandomValues();
 
 const complaintSchema = new mongoose.Schema(
   {
@@ -10,7 +8,7 @@ const complaintSchema = new mongoose.Schema(
     name: String,
     ward: Number,
     tag: String,
-    uid: String,
+    uid: uid().String,
   },
   { timestamps: true }
 );
