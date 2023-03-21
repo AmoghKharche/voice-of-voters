@@ -1,7 +1,7 @@
 import React from "react";
 
-function Home() {
+function Corporator() {
   return <div></div>;
 }
 
-export default Home;
+export default Corporator;

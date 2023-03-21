@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const ShortUniqueId = require("short-unique-id");
 const uid = new ShortUniqueId({ length: 6 });
-const moment = require("moment-timezone");
 
 const complaintSchema = new mongoose.Schema(
   {
@@ -15,17 +14,12 @@ const complaintSchema = new mongoose.Schema(
     },
     address: {
       type: String,
-      required: true,
     },
     ward: { type: Number, required: true },
     tag: { type: String, required: true },
-    ticketid: { type: String, default: uid(), min: 5, unique: true },
-    createdAt: {
-      type: Date,
-      default: () => moment().tz("Asia/Calcutta").format(),
-    },
-  }
-  // { timestamps: true }
+    // ticketId: { type: String, default: uid(), unique: true },
+  },
+  { timestamps: true }
 );
 
 module.exports = mongoose.model("Complaint", complaintSchema);

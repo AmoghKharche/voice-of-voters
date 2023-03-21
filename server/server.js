@@ -27,6 +27,6 @@ app.use(require("./router/auth"));
 //     res.send("Hello0 aboutt World");
 // })
 
-app.listen(3001, () => {
-  console.log("Server is running at 3001");
+app.listen(5000, () => {
+  console.log("Server is running at 5000");
 });
