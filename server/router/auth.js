@@ -5,8 +5,12 @@ const User = require("../model/userSchema");
 const Voter = require("../model/voterSchema");
 const Complaints = require("../model/complaintSchema");
 const Corporator = require("../model/corporatorSchema");
+const ShortUniqueId = require("short-unique-id");
+const uid = new ShortUniqueId({ length: 6 });
 
-router.post("/register", async (req, res) => {
+//register
+
+router.post("/signup", async (req, res) => {
   const { name, email, voterid, password, ward } = req.body;
   if (!name || !email || !voterid || !password || !ward) {
     return res.status(422).json({ error: "Please fill all the details" });
@@ -79,25 +83,42 @@ router.post("/login", async (req, res) => {
 //complaint route
 
 router.post("/register-complaint", async (req, res) => {
-  const { complaint, name, ward, tag } = req.body;
+  const { complaint, address, name, ward, tag } = req.body;
   if (!name || !complaint || !tag || !ward) {
     return res.status(422).json({ error: "Please fill all the details" });
   }
+
+  let ticketId = null;
+  while (!ticketId) {
+    try {
+      ticketId = uid();
+      const existingComplaint = await Complaints.findOne({ ticketId });
+      if (existingComplaint) {
+        ticketId = null;
+      }
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
+
   try {
     const complaints = await Complaints.create({
       name,
       complaint,
       ward,
       tag,
+      address,
+      ticketId,
     });
     return res
       .status(201)
       .json({ success: true, message: "Complaint Registered succesfully" });
   } catch (error) {
     console.log(error);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
 //corporator route
 
 router.post("/corporator/register", async (req, res) => {
