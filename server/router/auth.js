@@ -8,7 +8,22 @@ const Corporator = require("../model/corporatorSchema");
 const ShortUniqueId = require("short-unique-id");
 const uid = new ShortUniqueId({ length: 6 });
 const jwt = require("jsonwebtoken");
-const authenticate = require("../middleware/authenticate");
+const authenticate = require("../middleware/Authenticate");
+const multer = require("multer");
+const fs = require("fs");
+const cookie = require("cookie-parser");
+// // image upload
+
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "./router/uploads/");
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, file.originalname);
+//   },
+// });
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 //register
 
@@ -69,19 +84,17 @@ router.post("/login", async (req, res) => {
       password: password,
     }).exec();
 
-    token = await user.generateAuthToken();
-    console.log(token);
-
-    res.cookie("jwtoken", token, {
-      expires: new Date(Date.now() + 2592000000),
-      httpOnly: true,
-    });
-
     if (user) {
-      // If a matching user is found, return a success message
+      token = await user.generateAuthToken();
+      console.log(token);
+
+      res.cookie("jwtoken", token, {
+        expires: new Date(Date.now() + 2592000000),
+        httpOnly: true,
+      });
+
       return res.status(200).json({ message: "Login successful" });
     } else {
-      // If no matching user is found, return an error message
       return res.status(401).json({ message: "Invalid voterid or password" });
     }
   } catch (error) {
@@ -93,11 +106,33 @@ router.post("/login", async (req, res) => {
 
 //complaint route
 
-router.post("/register-complaint", async (req, res) => {
-  const { complaint, address, name, ward, tag } = req.body;
-  if (!name || !complaint || !tag || !ward || !file) {
+router.post("/register-complaint", upload.single("image"), async (req, res) => {
+  const { complaint, address, name, ward, tag, image } = req.body;
+  console.log(req.body);
+  if (!name || !complaint || !tag || !ward) {
     return res.status(422).json({ error: "Please fill all the details" });
   }
+  // image
+  console.log(req.file);
+  try {
+    let imageUploadObject = {
+      file: {
+        data: req.file.buffer,
+        contentType: req.file.mimetype,
+      },
+      fileName: req.file.originalname,
+    };
+
+    console.log(imageUploadObject);
+  } catch (error) {
+    // const uploadObject = new Upload(imageUploadObject);
+    // console.log(uploadObject);
+    // saving the object into the database
+    // const uploadProcess = await uploadObject.save();
+    console.error(error);
+    // res.status(500).send("Server Error");
+    // res.status(500).send("Server Error");
+  } //
 
   let ticketId = null;
   while (!ticketId) {
@@ -112,21 +147,21 @@ router.post("/register-complaint", async (req, res) => {
       return res.status(500).json({ error: "Internal Server Error" });
     }
   }
-
+  const complaints = await Complaints.create({
+    name,
+    complaint,
+    ward,
+    tag,
+    address,
+    ticketId,
+    image,
+  });
   try {
-    const complaints = await Complaints.create({
-      name,
-      complaint,
-      ward,
-      tag,
-      address,
+    return res.status(201).json({
+      success: true,
+      message: "Complaint Registered succesfully",
       ticketId,
-      file,
     });
-
-    return res
-      .status(201)
-      .json({ success: true, message: "Complaint Registered succesfully" });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error: "Internal Server Error" });
@@ -176,6 +211,11 @@ router.post("/corporator/login", async (req, res) => {
   }
 });
 
+router.post("/corporator-status", async (req, res) => {
+  const { text } = req.body;
+  console.log(req.body);
+});
+
 // middleware
 router.get("/home", authenticate, (req, res) => {
   console.log("Hello");
@@ -188,9 +228,11 @@ router.get("/register-complaint", authenticate, (req, res) => {
 router.get("/track-complaint", authenticate, (req, res) => {
   console.log("Hello");
   res.send("Hello0 aboutt World");
+  //middleware stuff
+  router.get("/announcements", authenticate, (req, res) => {
+    console.log("Hello");
+    res.send(req.rootUser);
+  });
 });
-router.get("/announcements", authenticate, (req, res) => {
-  console.log("Hello");
-  res.send(re);
-});
+
 module.exports = router;

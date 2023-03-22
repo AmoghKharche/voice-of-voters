@@ -1,3 +1,47 @@
-.hello{
-    font-size: 500px;
-}
+
+.voterid{
+    margin-right: 12px;
+  }
+  
+  .registerlogo{
+    height: 50vh;
+    width: 65vh;
+    margin-top: 10vh;
+    
+  }
+  .card-body{
+    font-size: 18px;
+    border-width: 0;
+    box-shadow: none;
+  
+   
+  }
+  .no-borderr{
+    border-width: 0;
+    box-shadow: none;
+    background-color: white;
+  }
+  .text-center{
+    margin-top: vh;
+  }
+  
+  #form-card{
+     padding-top: -7vh;
+     padding-bottom: 5vh;
+    
+  }
+  
+  .already-registered{
+    font-size: 18px;
+  }
+  
+  /* body{
+    background-image: url("../images/background.jpg");
+    background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  } */
+
+  .ward{
+    margin-left: 15px;
+  }

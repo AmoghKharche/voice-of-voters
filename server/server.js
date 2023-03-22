@@ -2,21 +2,14 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
-
+const cors = require("cors");
 dotenv.config({ path: "./config.env" });
 
 require("./db/conn");
-
+app.use(cors());
 app.use(express.json());
-// app.get("/", (req, res) => {
-//   res.send("Hello0 about World");
-// });
-app.use(require("./router/auth"));
 
-// const middleware = (req, res, next) => {
-//   console.log("Hello to my MiddleWare");
-//   next();
-// };
+app.use(require("./router/auth"));
 
 // app.get('/about', middleware, (req, res)=>{
 //     console.log("Hello")

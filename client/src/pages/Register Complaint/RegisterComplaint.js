@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function RegisterComplaint() {
   const [user, setUser] = useState({
@@ -9,6 +9,8 @@ function RegisterComplaint() {
     tag: "",
     address: "",
   });
+
+  const [ticketId, setTicketId] = useState("");
   let name, value;
   const handleInput = (e) => {
     console.log(e);
@@ -22,10 +24,10 @@ function RegisterComplaint() {
     e.preventDefault();
     const { name, complaint, ward, address, tag } = user;
 
-    const res = await fetch("/register-complaint", {
+    const res = await fetch("http://localhost:5000/register-complaint", {
       method: "POST",
       headers: {
-        "content-type": "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         name,
@@ -35,60 +37,76 @@ function RegisterComplaint() {
         tag,
       }),
     });
+
     const data = await res.json();
-    if (data.status === 422 || !data) {
+    console.log(data);
+    if (res.status === 422 || !data) {
       window.alert("Complaint Did Not Register");
       console.log("Complaint Did not Register");
     } else {
       window.alert("Complaint Registered");
       console.log("Complaint Registered");
+      setTicketId(data.ticketId);
     }
   };
-
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Name:
-        <input
-          type="text"
-          name="name"
-          value={user.name}
-          onChange={handleInput}
-        />
-      </label>
-      <br />
-      <label>
-        Complaint:
-        <textarea
-          name="complaint"
-          value={user.complaint}
-          onChange={handleInput}
-        />
-      </label>
-      <br />
+    <>
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <label>
+          Name:
+          <input
+            type="text"
+            name="name"
+            value={user.name}
+            onChange={handleInput}
+          />
+        </label>
+        <br />
+        <label>
+          Complaint:
+          <textarea
+            name="complaint"
+            value={user.complaint}
+            onChange={handleInput}
+          />
+        </label>
+        <br />
 
-      <label>
-        Ward:
-        <input
-          type="number"
-          name="ward"
-          value={user.ward}
-          onChange={handleInput}
-        />
-      </label>
-      <br />
-      <label>
-        Tag:
-        <input type="text" name="tag" value={user.tag} onChange={handleInput} />
-      </label>
-      <br />
-      <label>
-        Address:
-        <textarea name="address" value={user.address} onChange={handleInput} />
-      </label>
-      <br />
-      <button type="submit">Submit</button>
-    </form>
+        <label>
+          Ward:
+          <input
+            type="number"
+            name="ward"
+            value={user.ward}
+            onChange={handleInput}
+          />
+        </label>
+        <br />
+        <label>
+          Tag:
+          <input
+            type="text"
+            name="tag"
+            value={user.tag}
+            onChange={handleInput}
+          />
+        </label>
+        <br />
+        <label>
+          Address:
+          <textarea
+            name="address"
+            value={user.address}
+            onChange={handleInput}
+          />
+        </label>
+
+        <br />
+        <button type="submit">Submit</button>
+      </form>
+
+      {ticketId && <p>Ticket ID: {ticketId}</p>}
+    </>
   );
 }
 

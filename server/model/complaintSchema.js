@@ -19,6 +19,11 @@ const complaintSchema = new mongoose.Schema(
     ward: { type: Number, required: true },
     tag: { type: String, required: true },
     ticketId: { type: String, default: uid(), unique: true },
+
+    img: {
+      data: Buffer,
+      contentType: String,
+    },
   },
   { timestamps: true }
 );
