@@ -7,6 +7,8 @@ const Complaints = require("../model/complaintSchema");
 const Corporator = require("../model/corporatorSchema");
 const ShortUniqueId = require("short-unique-id");
 const uid = new ShortUniqueId({ length: 6 });
+const jwt = require("jsonwebtoken");
+const authenticate = require("../middleware/authenticate");
 
 //register
 
@@ -61,10 +63,19 @@ router.post("/login", async (req, res) => {
   const { voterid, password } = req.body;
 
   try {
+    let token;
     const user = await User.findOne({
       voterid: voterid,
       password: password,
     }).exec();
+
+    token = await user.generateAuthToken();
+    console.log(token);
+
+    res.cookie("jwtoken", token, {
+      expires: new Date(Date.now() + 2592000000),
+      httpOnly: true,
+    });
 
     if (user) {
       // If a matching user is found, return a success message
@@ -84,7 +95,7 @@ router.post("/login", async (req, res) => {
 
 router.post("/register-complaint", async (req, res) => {
   const { complaint, address, name, ward, tag } = req.body;
-  if (!name || !complaint || !tag || !ward) {
+  if (!name || !complaint || !tag || !ward || !file) {
     return res.status(422).json({ error: "Please fill all the details" });
   }
 
@@ -110,7 +121,9 @@ router.post("/register-complaint", async (req, res) => {
       tag,
       address,
       ticketId,
+      file,
     });
+
     return res
       .status(201)
       .json({ success: true, message: "Complaint Registered succesfully" });
@@ -163,4 +176,21 @@ router.post("/corporator/login", async (req, res) => {
   }
 });
 
+// middleware
+router.get("/home", authenticate, (req, res) => {
+  console.log("Hello");
+  res.send("Hello0 aboutt World");
+});
+router.get("/register-complaint", authenticate, (req, res) => {
+  console.log("Hello");
+  res.send("Hello0 aboutt World");
+});
+router.get("/track-complaint", authenticate, (req, res) => {
+  console.log("Hello");
+  res.send("Hello0 aboutt World");
+});
+router.get("/announcements", authenticate, (req, res) => {
+  console.log("Hello");
+  res.send(re);
+});
 module.exports = router;
