@@ -93,6 +93,14 @@ function Login() {
                     </Link>
                   </p>
                 </div>
+                <div>
+                  <p className="mb-0 already">
+                    Corporator?{" "}
+                    <Link to="/corporator/login" class="text-dark-50 fw-bold">
+                      Login here
+                    </Link>
+                  </p>
+                </div>
               </form>
             </MDBCardBody>
           </MDBCard>

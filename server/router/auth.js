@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-require("../db/conn");
 const User = require("../model/userSchema");
 const Voter = require("../model/voterSchema");
 const Complaints = require("../model/complaintSchema");
@@ -9,21 +8,12 @@ const ShortUniqueId = require("short-unique-id");
 const uid = new ShortUniqueId({ length: 6 });
 const jwt = require("jsonwebtoken");
 const authenticate = require("../middleware/Authenticate");
-const multer = require("multer");
+// const multer = require("multer");
 const fs = require("fs");
-const cookie = require("cookie-parser");
-// // image upload
+const Image = require("../model/imageSchema");
 
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, "./router/uploads/");
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, file.originalname);
-//   },
-// });
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+// const storage = multer.memoryStorage();
+// const upload = multer({ storage: storage });
 
 //register
 
@@ -84,19 +74,15 @@ router.post("/login", async (req, res) => {
       password: password,
     }).exec();
 
-    if (user) {
-      token = await user.generateAuthToken();
-      console.log(token);
-
-      res.cookie("jwtoken", token, {
-        expires: new Date(Date.now() + 2592000000),
-        httpOnly: true,
-      });
-
-      return res.status(200).json({ message: "Login successful" });
-    } else {
+    if (!user) {
       return res.status(401).json({ message: "Invalid voterid or password" });
     }
+    token = await user.generateAuthToken();
+    console.log(token);
+    return res
+      .cookie("jwtoken", token)
+      .status(200)
+      .json({ message: "Login successful" });
   } catch (error) {
     // If there's an error, return a server error message
     console.error(error);
@@ -106,66 +92,50 @@ router.post("/login", async (req, res) => {
 
 //complaint route
 
-router.post("/register-complaint", upload.single("image"), async (req, res) => {
-  const { complaint, address, name, ward, tag, image } = req.body;
+router.post("/api/register-complaint", async (req, res) => {
   console.log(req.body);
-  if (!name || !complaint || !tag || !ward) {
-    return res.status(422).json({ error: "Please fill all the details" });
-  }
-  // image
+  // const { complaint, address, name, ward, tag } = req.body;
+  // const { image } = req.file;
+  console.log(req.files);
   console.log(req.file);
-  try {
-    let imageUploadObject = {
-      file: {
-        data: req.file.buffer,
-        contentType: req.file.mimetype,
-      },
-      fileName: req.file.originalname,
-    };
+  // if (!name || !complaint || !tag || !ward) {
+  //   return res.status(422).json({ error: "Please fill all the details" });
+  // }
+  // let ticketId = await uid();
+  // const existingComplaint = await Complaints.findOne({ ticketId });
+  // if (existingComplaint) {
+  //   ticketId = await uid();
+  // }
 
-    console.log(imageUploadObject);
-  } catch (error) {
-    // const uploadObject = new Upload(imageUploadObject);
-    // console.log(uploadObject);
-    // saving the object into the database
-    // const uploadProcess = await uploadObject.save();
-    console.error(error);
-    // res.status(500).send("Server Error");
-    // res.status(500).send("Server Error");
-  } //
-
-  let ticketId = null;
-  while (!ticketId) {
-    try {
-      ticketId = uid();
-      const existingComplaint = await Complaints.findOne({ ticketId });
-      if (existingComplaint) {
-        ticketId = null;
-      }
-    } catch (err) {
-      console.log(err);
-      return res.status(500).json({ error: "Internal Server Error" });
-    }
-  }
-  const complaints = await Complaints.create({
-    name,
-    complaint,
-    ward,
-    tag,
-    address,
-    ticketId,
-    image,
-  });
+  // const complaints = await Complaints.create({
+  //   name,
+  //   complaint,
+  //   ward,
+  //   tag,
+  //   address,
+  //   ticketId,
+  // });
+  // await Image.create({
+  //   ticketId,
+  //   data: image.data,
+  //   contentType: image.mimetype,
+  // });
   try {
     return res.status(201).json({
       success: true,
       message: "Complaint Registered succesfully",
-      ticketId,
     });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
+});
+router.get("/api/image/:ticketId", async (req, res) => {
+  const { ticketId } = req.params;
+  const { contentType, data } = await Image.findOne({
+    ticketId,
+  });
+  res.contentType(contentType).send(data);
 });
 //corporator route
 
@@ -202,6 +172,9 @@ router.post("/corporator/login", async (req, res) => {
       return res.status(200).json({ message: "Login successful" });
     } else {
       return res
+        .cookie("jwtoken", token, {
+          maxAge: 1000 * 60 * 60 * 24 * 7,
+        })
         .status(401)
         .json({ message: "Invalid email, password or ward." });
     }
@@ -234,5 +207,10 @@ router.get("/track-complaint", authenticate, (req, res) => {
     res.send(req.rootUser);
   });
 });
+
+// await Complaints.findOneAndUpdate(
+//   { ticketId: ticketId },
+//   { status: "Resolved" }
+// );
 
 module.exports = router;

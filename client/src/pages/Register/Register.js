@@ -157,6 +157,11 @@ function Register() {
                   Already Registerd? Login Here
                 </Link>
               </div>
+              <div className="already-registered-row">
+                <Link to="/corporator/register" className="already-registered">
+                  Corporator? Register Here
+                </Link>
+              </div>
             </MDBCol>
             <MDBCol
               md="10"
