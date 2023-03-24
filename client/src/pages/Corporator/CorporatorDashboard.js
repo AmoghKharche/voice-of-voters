@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { fetchComplaints } from '../../api/api';
-import ComplaintStatusForm from './ComplaintStatusForm';
+import React, { useEffect, useState } from "react";
+import { fetchComplaints } from "../../api/api";
+import ComplaintStatusForm from "./ComplaintStatusForm";
 
 const CorporatorDashboard = () => {
   const [complaints, setComplaints] = useState([]);
@@ -22,6 +22,7 @@ const CorporatorDashboard = () => {
         <thead>
           <tr>
             <th>Ticket ID</th>
+            <th>Name</th>
             <th>Complaint</th>
             <th>Ward</th>
             <th>Tag</th>
@@ -29,10 +30,11 @@ const CorporatorDashboard = () => {
           </tr>
         </thead>
         <tbody>
-          {complaints.map(complaint => {
+          {complaints.map((complaint) => {
             return (
               <tr>
                 <td>{complaint.ticketId}</td>
+                <td>{complaint.name}</td>
                 <td>{complaint.complaint}</td>
                 <td>{complaint.ward}</td>
                 <td>{complaint.tag}</td>
