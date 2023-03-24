@@ -1,76 +1,78 @@
-import React from "react";
-import "./Navbar.css";
-import { Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.css";
-import logo from "../assets/logo png.png";
-function Navbar() {
+import React, { useState } from "react";
+import Logo from "../assets/Logo.jpg";
+
+import { HiOutlineBars3 } from "react-icons/hi2";
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+
+const Navbar = () => {
+  const [openMenu, setOpenMenu] = useState(false);
+  const menuOptions = [
+    {
+      text: "Home",
+      href: "/",
+    },
+    {
+      text: "Announcements",
+      href: "/announcements",
+    },
+
+    {
+      text: "Register Complaint",
+      href: "/register-complaint",
+    },
+    {
+      text: "Track Complaint",
+      href: "/track-complaint",
+    },
+  ];
   return (
-    <nav className="navbar navbar-expand-lg navbar-light shadow-box ">
-      <div className="container-fluid  ">
-        <Link to="/">
-          <img src={logo} className="weblogo" />
-        </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul className="navbar-nav ml-auto">
-            <li className="nav-item stroke">
-              <Link
-                to="/"
-                className="nav-link active hover-underline-animation"
-                aria-current="page"
-              >
-                Home
-              </Link>
-            </li>
-            <li className="nav-item stroke">
-              <Link
-                to="/announcements"
-                className="nav-link hover-underline-animation"
-              >
-                Announcements
-              </Link>
-            </li>
-            <li className="nav-item stroke">
-              <Link
-                to="/register-complaint"
-                className="nav-link hover-underline-animation"
-              >
-                Register Complaint
-              </Link>
-            </li>
-            <li className="nav-item stroke">
-              <Link
-                to="/track-complaint"
-                className="nav-link hover-underline-animation"
-              >
-                Track Complaint
-              </Link>
-            </li>
-            <li className="nav-item stroke">
-              <Link to="/login" className="nav-link hover-underline-animation">
-                Login
-              </Link>
-            </li>
-            <li className="nav-item ">
-              <Link to="/signup" className="nav-link hover-underline-animation">
-                Register
-              </Link>
-            </li>
-          </ul>
+    <nav>
+      {
+        <div className="nav-logo-container">
+          <a href="/">
+            <img src={Logo} alt="" />
+          </a>
         </div>
+      }
+      <div className="navbar-links-container">
+        <a href="/">Home</a>
+        <a href="/announcements">Announcements</a>
+        <a href="/register-complaint">Register Complaint</a>
+        <a href="/track-complaint">Track Complaint</a>
+        <a href="/login">Login</a>
       </div>
+      <div className="navbar-menu-container">
+        <HiOutlineBars3 onClick={() => setOpenMenu(true)} />
+      </div>
+      <Drawer open={openMenu} onClose={() => setOpenMenu(false)} anchor="right">
+        <Box
+          sx={{ width: 250 }}
+          role="presentation"
+          onClick={() => setOpenMenu(false)}
+          onKeyDown={() => setOpenMenu(false)}
+        >
+          <List>
+            {menuOptions.map((item) => (
+              <ListItem key={item.text} disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemText primary={item.text} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+          <Divider />
+        </Box>
+      </Drawer>
     </nav>
   );
-}
+};
 
 export default Navbar;

@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema({
+const CorporatorLoginSchema = new mongoose.Schema({
+  ward: {
+    type: Number,
+    required: true,
+  },
   name: {
     type: String,
     required: true,
@@ -11,16 +15,10 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
 
-  voterid: {
-    type: String,
-    required: true,
-  },
-
   password: {
     type: String,
     required: true,
   },
-  ward: Number,
 });
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("corporatorLogin", CorporatorLoginSchema);

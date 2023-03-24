@@ -8,7 +8,7 @@ import CorporatorLogin from "./pages/Corporator/CorporatorLogin";
 import CorporatorRegister from "./pages/Corporator/CorporatorRegister";
 import CorporatorDashboard from "./pages/Corporator/CorporatorDashboard";
 import Login from "./pages/Login/Login";
-import StatusCheck from "./pages/Corporator/StatusCheck";
+
 import Navbar from "./components/Navbar";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
@@ -20,6 +20,7 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
+
             <Route path="/signup" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register-complaint" element={<RegisterComplaint />} />
@@ -33,7 +34,7 @@ function App() {
               path="/corporator/dashboard"
               element={<CorporatorDashboard />}
             />
-            <Route path="/corporator/status" element={<StatusCheck />} />
+
             <Route path="/announcements" element={<Announcements />} />
             <Route path="*" element={<Navigate to={"/"} />} />
           </Routes>

@@ -11,6 +11,7 @@ const authenticate = require("../middleware/Authenticate");
 // const multer = require("multer");
 const fs = require("fs");
 const Image = require("../model/imageSchema");
+const CorporatorLogin = require("../model/CorporatorLoginSchema");
 
 // const storage = multer.memoryStorage();
 // const upload = multer({ storage: storage });
@@ -68,16 +69,14 @@ router.post("/login", async (req, res) => {
   const { voterid, password } = req.body;
 
   try {
-    let token;
     const user = await User.findOne({
       voterid: voterid,
       password: password,
     }).exec();
-
     if (!user) {
       return res.status(401).json({ message: "Invalid voterid or password" });
     }
-    token = await user.generateAuthToken();
+    let token = jwt.sign({ _id: user._id }, process.env.SECRET_KEY);
     console.log(token);
     return res
       .cookie("jwtoken", token)
@@ -145,7 +144,21 @@ router.post("/corporator/register", async (req, res) => {
     return res.status(422).json({ error: "Please fill all the details" });
   }
   try {
-    const corporator = await Corporator.create({
+    const corporator = await Corporator.findOne({ ward });
+    if (!corporator) {
+      return res.status(404).json({ success: false, error: "Ward not found" });
+    }
+    if (corporator.name != name) {
+      return res
+        .status(400)
+        .json({ success: false, error: "Name did not match" });
+    }
+    if (corporator.ward != ward) {
+      return res
+        .status(400)
+        .json({ success: false, error: "Ward did not match" });
+    }
+    const corporatorLogin = await CorporatorLogin.create({
       name,
       email,
       password,
@@ -159,24 +172,19 @@ router.post("/corporator/register", async (req, res) => {
 });
 
 router.post("/corporator/login", async (req, res) => {
-  const { name, email, password, ward } = req.body;
+  const { email, password, ward } = req.body;
 
   try {
-    const corporator = await Corporator.findOne({
+    const corporatorLogin = await CorporatorLogin.findOne({
       email: email,
       ward: ward,
       password: password,
     }).exec();
 
-    if (corporator) {
+    if (corporatorLogin) {
       return res.status(200).json({ message: "Login successful" });
     } else {
-      return res
-        .cookie("jwtoken", token, {
-          maxAge: 1000 * 60 * 60 * 24 * 7,
-        })
-        .status(401)
-        .json({ message: "Invalid email, password or ward." });
+      res.status(401).json({ message: "Invalid email, password or ward." });
     }
   } catch (error) {
     console.error(error);
@@ -206,6 +214,19 @@ router.get("/track-complaint", authenticate, (req, res) => {
     console.log("Hello");
     res.send(req.rootUser);
   });
+});
+router.get("/complaints", (req, res) => {});
+router.post("/complaints/:id/status", (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  // Update the status of the complaint with the given ID in the database
+  // ...
+
+  // Send a status update to the user who filed the complaint
+  // ...
+
+  res.sendStatus(200);
 });
 
 // await Complaints.findOneAndUpdate(
