@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
-
+import { UserContext } from "../../App";
 import {
   MDBBtn,
   MDBContainer,
@@ -14,6 +14,8 @@ import {
 import { Link } from "react-router-dom";
 
 function Login() {
+  const { state, dispatch } = useContext(UserContext);
+
   const navigate = useNavigate();
   const [voterid, setVoterid] = useState("");
   const [password, setPassword] = useState("");
@@ -35,6 +37,7 @@ function Login() {
     if (res.status === 401) {
       window.alert("Invalid Credentials");
     } else {
+      dispatch({ type: "USER", payload: true });
       window.alert("Login Successful");
       window.location.href = "/";
     }

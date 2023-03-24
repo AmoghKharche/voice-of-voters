@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Logo from "../assets/Logo.jpg";
-
+import { UserContext } from "../App";
 import { HiOutlineBars3 } from "react-icons/hi2";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -12,6 +12,31 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
 const Navbar = () => {
+  const { state, dispatch } = useContext(UserContext);
+  const RenderMenu = () => {
+    if (state) {
+      return (
+        <>
+          <a href="/">Home</a>
+          <a href="/announcements">Announcements</a>
+          <a href="/register-complaint">Register Complaint</a>
+          <a href="/track-complaint">Track Complaint</a>
+
+          <a href="/logout">Logout</a>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <a href="/">Home</a>
+          <a href="/announcements">Announcements</a>
+          <a href="/register-complaint">Register Complaint</a>
+          <a href="/track-complaint">Track Complaint</a>
+          <a href="/login">Login</a>
+        </>
+      );
+    }
+  };
   const [openMenu, setOpenMenu] = useState(false);
   const menuOptions = [
     {
@@ -42,11 +67,7 @@ const Navbar = () => {
         </div>
       }
       <div className="navbar-links-container">
-        <a href="/">Home</a>
-        <a href="/announcements">Announcements</a>
-        <a href="/register-complaint">Register Complaint</a>
-        <a href="/track-complaint">Track Complaint</a>
-        <a href="/login">Login</a>
+        <RenderMenu />
       </div>
       <div className="navbar-menu-container">
         <HiOutlineBars3 onClick={() => setOpenMenu(true)} />

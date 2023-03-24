@@ -60,10 +60,14 @@ nav {
   font-size: 1.5rem;
   cursor: pointer;
 }
+.home-container{
+  margin-left: 65px;
+}
 .home-banner-container {
   position: relative;
   display: flex;
   padding-top: 3rem;
+  margin-right: 100px;
 }
 .home-bannerImage-container {
   position: absolute;
@@ -482,7 +486,8 @@ nav {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  margin-left: 80px;
+  margin-right: 80px;
 }
 
 

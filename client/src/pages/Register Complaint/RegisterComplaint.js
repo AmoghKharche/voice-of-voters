@@ -1,7 +1,40 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function RegisterComplaint() {
+  const navigate = useNavigate("");
+  let data;
+  const callAnnouncements = async () => {
+    try {
+      const res = await fetch("/register-complaint", {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+
+      data = await res.json();
+      console.log(" d", data);
+
+      if (res.status !== 200) {
+        const error = new Error(res.error);
+        throw error;
+      }
+    } catch (err) {
+      console.log("err: ", err);
+      if (data.status == 401) {
+        alert("not logged in");
+      }
+      navigate("/login");
+    }
+  };
+
+  useEffect(() => {
+    callAnnouncements();
+  }, []);
   const [user, setUser] = useState({
     name: "",
     complaint: "",

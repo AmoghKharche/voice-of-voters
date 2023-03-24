@@ -78,7 +78,7 @@ router.post("/login", async (req, res) => {
     }
     let token = jwt.sign({ _id: user._id }, process.env.SECRET_KEY);
     console.log(token);
-    return res
+    res
       .cookie("jwtoken", token)
       .status(200)
       .json({ message: "Login successful" });
@@ -91,7 +91,7 @@ router.post("/login", async (req, res) => {
 
 //complaint route
 
-router.post("/register-complaint", async (req, res) => {
+router.post("/register-complaint", authenticate, async (req, res) => {
   const { complaint, address, name, ward, tag, status } = req.body;
   //const { image } = req.file || {};
 
@@ -199,28 +199,28 @@ router.post("/corporator/login", async (req, res) => {
   }
 });
 
-router.post("/corporator-status", async (req, res) => {
-  const { text } = req.body;
-  console.log(req.body);
-});
-
 // middleware
-router.get("/home", authenticate, (req, res) => {
+router.get("/home", (req, res) => {
   console.log("Hello");
   res.send("Hello0 aboutt World");
 });
 router.get("/register-complaint", authenticate, (req, res) => {
   console.log("Hello");
-  res.send("Hello0 aboutt World");
+  res.send(req.rootUser);
 });
 router.get("/track-complaint", authenticate, (req, res) => {
   console.log("Hello");
-  res.send("Hello0 aboutt World");
+  res.send(req.rootUser);
   //middleware stuff
-  router.get("/announcements", authenticate, (req, res) => {
-    console.log("Hello");
-    res.send(req.rootUser);
-  });
+});
+
+//its a independent route.
+//localhost:5000/announcements
+//if you put it another route it will hold trailing endpoint
+
+router.get("/announcements", authenticate, (req, res) => {
+  console.log("Hello");
+  res.send(req.rootUser);
 });
 router.get("/complaints", (req, res) => {});
 router.post("/complaints/:id/status", (req, res) => {
@@ -300,6 +300,14 @@ router.get("/api/complaints", async (req, res) => {
     console.log(error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
+});
+
+router.get("/logout", (req, res) => {
+  console.log("Logout User");
+  res.cookie("jwtoken", "none", {
+    expires: new Date(Date.now() + 10 * 1000),
+  });
+  res.status(200).send("User Logout");
 });
 
 module.exports = router;
