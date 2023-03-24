@@ -1,18 +1,16 @@
-import { useState } from "react";
-import axios from "axios";
+import { useState } from 'react';
+import { fetchComplaint } from '../../api/api';
 
 function TrackComplaint() {
-  const [ticketId, setTicketId] = useState("");
-  const [complaint, setComplaint] = useState(null);
-  const [error, setError] = useState("");
+  const [ticketId, setTicketId] = useState('');
 
-  const handleTrack = async () => {
-    try {
-      const response = await axios.get(`/complaints/${ticketId}`);
-      setComplaint(response.data);
-    } catch (error) {
-      setError("Invalid ticket ID");
-    }
+  const [complaint, setComplaint] = useState(null);
+  const [error, setError] = useState('');
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const fetchedComplaint = await fetchComplaint(ticketId);
+    setComplaint(fetchedComplaint);
   };
 
   return (
@@ -21,16 +19,15 @@ function TrackComplaint() {
         type="text"
         placeholder="Enter ticket ID"
         value={ticketId}
-        onChange={(e) => setTicketId(e.target.value)}
+        onChange={e => setTicketId(e.target.value)}
       />
-      <button onClick={handleTrack}>Track</button>
+      <button onClick={handleSubmit}>Track</button>
       {complaint ? (
         <div>
           <p>Ticket ID: {complaint.ticketId}</p>
-          <p>Name: {complaint.name}</p>
-          <p>Email: {complaint.email}</p>
-          <p>Phone: {complaint.phone}</p>
           <p>Complaint: {complaint.complaint}</p>
+          <p>Ward: {complaint.ward}</p>
+          <p>Tag: {complaint.tag}</p>
           <p>Status: {complaint.status}</p>
         </div>
       ) : (

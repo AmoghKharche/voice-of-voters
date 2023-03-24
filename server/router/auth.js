@@ -235,7 +235,7 @@ router.get('/api/complaints/:ticketId', async (req, res) => {
       return res.status(404).json({ error: 'No Complaint Found with this Ticket Id' });
     }
 
-    return res.status(200).json({ data: complaint });
+    return res.status(200).json(complaint);
   } catch (error) {}
 });
 
@@ -256,7 +256,7 @@ router.patch('/api/complaint-status-update/:ticketId', async (req, res) => {
     complaint.status = status;
     await complaint.save();
 
-    return res.status(200).json({ error: 'Complaint status updated successfully' });
+    return res.status(200).json('Status updated successfully');
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error: 'Internal Server Error' });
@@ -265,8 +265,8 @@ router.patch('/api/complaint-status-update/:ticketId', async (req, res) => {
 
 router.get('/api/complaints', async (req, res) => {
   try {
-    const complaints = await Complaints.find({}).select('ticketId name complaint ward tag');
-    return res.status(200).json({ data: complaints });
+    const complaints = await Complaints.find({}).select('ticketId name complaint ward tag status');
+    return res.status(200).json(complaints);
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error: 'Internal Server Error' });
