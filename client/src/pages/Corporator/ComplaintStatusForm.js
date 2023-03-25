@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { updateStatus } from "../../api/api";
 
-const ComplaintStatusForm = ({ complaints }) => {
+const ComplaintStatusForm = ({ complaints, setReFetch }) => {
   const [selectedComplaintTicketId, setSelectedComplaintTicketId] =
     useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
@@ -11,6 +11,7 @@ const ComplaintStatusForm = ({ complaints }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const res = await updateStatus(selectedComplaintTicketId, selectedStatus);
+    setReFetch((prev) => !prev);
     console.log(
       "🚀 ~ file: ComplaintStatusForm.js:13 ~ handleSubmit ~ res:",
       res
