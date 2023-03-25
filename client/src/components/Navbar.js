@@ -21,7 +21,6 @@ const Navbar = () => {
           <a href="/announcements">Announcements</a>
           <a href="/register-complaint">Register Complaint</a>
           <a href="/track-complaint">Track Complaint</a>
-
           <a href="/logout">Logout</a>
         </>
       );

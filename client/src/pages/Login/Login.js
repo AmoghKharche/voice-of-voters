@@ -38,6 +38,7 @@ function Login() {
       window.alert("Invalid Credentials");
     } else {
       dispatch({ type: "USER", payload: true });
+      console.log(res);
       window.alert("Login Successful");
       window.location.href = "/";
     }

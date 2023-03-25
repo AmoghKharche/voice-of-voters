@@ -98,6 +98,7 @@ router.post("/register-complaint", authenticate, async (req, res) => {
   if (!name || !complaint || !tag || !ward) {
     return res.status(422).json({ error: "Please fill all the details" });
   }
+
   let ticketId = await uid();
 
   try {
@@ -112,7 +113,6 @@ router.post("/register-complaint", authenticate, async (req, res) => {
       ward,
       tag,
       address,
-      ticketId,
     });
     console.log(
       "🚀 ~ file: auth.js:107 ~ router.post ~ complaints:",
@@ -204,11 +204,11 @@ router.get("/home", (req, res) => {
   console.log("Hello");
   res.send("Hello0 aboutt World");
 });
-router.get("/register-complaint", authenticate, (req, res) => {
+router.get("/register-complaint", (req, res) => {
   console.log("Hello");
   res.send(req.rootUser);
 });
-router.get("/track-complaint", authenticate, (req, res) => {
+router.get("/track-complaint", (req, res) => {
   console.log("Hello");
   res.send(req.rootUser);
   //middleware stuff

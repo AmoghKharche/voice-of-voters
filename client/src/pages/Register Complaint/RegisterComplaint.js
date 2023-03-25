@@ -81,6 +81,7 @@ function RegisterComplaint() {
       console.log("Complaint Registered");
       setTicketId(data.ticketId);
     }
+    window.alert(ticketId);
   };
   return (
     <>
