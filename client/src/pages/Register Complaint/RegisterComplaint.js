@@ -1,40 +1,41 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "./RegisterComplaint.css"
 
 function RegisterComplaint() {
-  const navigate = useNavigate("");
-  let data;
-  const callAnnouncements = async () => {
-    try {
-      const res = await fetch("/register-complaint", {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
+  // const navigate = useNavigate("");
+  // let data;
+  // const callAnnouncements = async () => {
+  //   try {
+  //     const res = await fetch("/register-complaint", {
+  //       method: "GET",
+  //       headers: {
+  //         Accept: "application/json",
+  //         "Content-Type": "application/json",
+  //       },
+  //       credentials: "include",
+  //     });
 
-      data = await res.json();
-      console.log(" d", data);
+  //     data = await res.json();
+  //     console.log(" d", data);
 
-      if (res.status !== 200) {
-        const error = new Error(res.error);
-        throw error;
-      }
-    } catch (err) {
-      console.log("err: ", err);
-      if (data.status == 401) {
-        alert("not logged in");
-      }
-      navigate("/login");
-    }
-  };
+  //     if (res.status !== 200) {
+  //       const error = new Error(res.error);
+  //       throw error;
+  //     }
+  //   } catch (err) {
+  //     console.log("err: ", err);
+  //     if (data.status == 401) {
+  //       alert("not logged in");
+  //     }
+  //     navigate("/login");
+  //   }
+  // };
 
-  useEffect(() => {
-    callAnnouncements();
-  }, []);
+  // useEffect(() => {
+  //   callAnnouncements();
+  // }, []);
   const [user, setUser] = useState({
     name: "",
     complaint: "",
@@ -80,24 +81,28 @@ function RegisterComplaint() {
       window.alert("Complaint Registered");
       console.log("Complaint Registered");
       setTicketId(data.ticketId);
+
+      console.log(ticketId)
     }
-    window.alert(ticketId);
+   
   };
   return (
     <>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
-        <label>
-          Name:
-          <input
-            type="text"
+
+       
+        <label for="name">Name:</label>
+		<input   type="text"
             name="name"
             value={user.name}
-            onChange={handleInput}
-          />
-        </label>
-        <br />
-        <label>
-          Complaint:
+            onChange={handleInput}/>
+
+		<label for="address">Address:</label>
+		<input type="text"  name="address"
+            value={user.address}
+            onChange={handleInput}/><label>
+              <label for="complaint">Complaint:</label>
+       
           <textarea
             name="complaint"
             value={user.complaint}
@@ -106,40 +111,33 @@ function RegisterComplaint() {
         </label>
         <br />
 
-        <label>
-          Ward:
-          <input
-            type="number"
+
+		<label for="ward">Ward:</label>
+		<input  type="number"
             name="ward"
             value={user.ward}
-            onChange={handleInput}
-          />
-        </label>
-        <br />
-        <label>
-          Tag:
-          <input
-            type="text"
+            onChange={handleInput}/>
+
+		<label for="tag">Tag:</label>
+		<select type="text"
             name="tag"
             value={user.tag}
-            onChange={handleInput}
-          />
-        </label>
-        <br />
-        <label>
-          Address:
-          <textarea
-            name="address"
-            value={user.address}
-            onChange={handleInput}
-          />
-        </label>
+            onChange={handleInput}>
+			<option value="">Select a tag</option>
+			<option value="Water Department">Water Department</option>
+			<option value="Garbage Department">Garbage Department</option>
+			<option value="Electricity Department">Electricity Department</option>
+			<option value="Roads Department">Roads Department</option>
+			<option value="Other"> Other</option>
+		</select>
 
-        <br />
-        <button type="submit">Submit</button>
+		<label for="image">Image:</label>
+		<input type="file" id="image" name="image" accept="image/*" />
+
+		<input type="submit" value="Submit"></input>
       </form>
-
-      {ticketId && <p>Ticket ID: {ticketId}</p>}
+<div className="ticket"> 
+      {ticketId && <p>Ticket ID: {ticketId}</p>}</div>
     </>
   );
 }

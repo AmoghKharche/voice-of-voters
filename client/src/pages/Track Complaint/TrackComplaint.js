@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+
+import { useState } from "react";
 import { fetchComplaint } from "../../api/api";
-import { useNavigate } from "react-router-dom";
+import "./TrackComplaint.css";
 
 function TrackComplaint() {
   const [ticketId, setTicketId] = useState("");
-
   const [complaint, setComplaint] = useState(null);
   const [error, setError] = useState("");
 
@@ -12,53 +12,34 @@ function TrackComplaint() {
     e.preventDefault();
     const fetchedComplaint = await fetchComplaint(ticketId);
     setComplaint(fetchedComplaint);
-  };
-  const navigate = useNavigate();
-  const callAnnouncements = async () => {
-    try {
-      const res = await fetch("/track-complaint", {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
-
-      const data = await res.json();
-      console.log(data);
-      if (res.status !== 200) {
-        const error = new Error(res.error);
-        throw error;
-      }
-    } catch (err) {
-      console.log(err);
-      navigate("/login");
-    }
+    setError("");
   };
 
-  useEffect(() => {
-    callAnnouncements();
-  }, []);
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="Enter ticket ID"
-        value={ticketId}
-        onChange={(e) => setTicketId(e.target.value)}
-      />
-      <button onClick={handleSubmit}>Track</button>
-      {complaint ? (
-        <div>
-          <p>Ticket ID: {complaint.ticketId}</p>
-          <p>Complaint: {complaint.complaint}</p>
-          <p>Ward: {complaint.ward}</p>
-          <p>Tag: {complaint.tag}</p>
-          <p>Status: {complaint.status}</p>
+    <div className="track-complaint-container">
+      <h2>Track Complaint</h2>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="ticketId">Enter Ticket ID:</label>
+        <input
+          id="ticketId"
+          type="text"
+          placeholder="e.g. 12345"
+          value={ticketId}
+          onChange={(e) => setTicketId(e.target.value)}
+        />
+        <button>Track</button>
+      </form>
+      {complaint && (
+        <div className="complaint-details">
+          <p><strong>Ticket ID:</strong> {complaint.ticketId}</p>
+          <p><strong>Complaint:</strong> {complaint.complaint}</p>
+          <p><strong>Ward:</strong> {complaint.ward}</p>
+          <p><strong>Tag:</strong> {complaint.tag}</p>
+          <p><strong>Status:</strong> {complaint.status}</p>
         </div>
-      ) : (
-        <p>{error}</p>
+      )}
+      {error && (
+        <p className="error-message">Error: {error}</p>
       )}
     </div>
   );

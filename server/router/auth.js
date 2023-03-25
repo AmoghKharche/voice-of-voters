@@ -91,7 +91,7 @@ router.post("/login", async (req, res) => {
 
 //complaint route
 
-router.post("/register-complaint", authenticate, async (req, res) => {
+router.post("/register-complaint",  async (req, res) => {
   const { complaint, address, name, ward, tag, status } = req.body;
   //const { image } = req.file || {};
 
@@ -113,6 +113,7 @@ router.post("/register-complaint", authenticate, async (req, res) => {
       ward,
       tag,
       address,
+      ticketId,
     });
     console.log(
       "🚀 ~ file: auth.js:107 ~ router.post ~ complaints:",
