@@ -20,7 +20,8 @@ label {
     margin-top: 20px;
 }
 input[type=text], select {
-    width: 100%;
+    width: 80%;
+    height: 50px;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;

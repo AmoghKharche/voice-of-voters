@@ -23,7 +23,7 @@ function TrackComplaint() {
         <input
           id="ticketId"
           type="text"
-          placeholder="e.g. 12345"
+          placeholder="e.g. fHyn23"
           value={ticketId}
           onChange={(e) => setTicketId(e.target.value)}
         />

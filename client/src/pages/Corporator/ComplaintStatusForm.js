@@ -42,9 +42,9 @@ const ComplaintStatusForm = ({ complaints, setReFetch }) => {
           onChange={(event) => setSelectedStatus(event.target.value)}
         >
           <option value="">-- Select --</option>
-          <option value="open">Open</option>
-          <option value="in-progress">In Progress</option>
-          <option value="resolved">Resolved</option>
+          <option value="Open">Open</option>
+          <option value="In-progress">In Progress</option>
+          <option value="Resolved">Resolved</option>
         </select>
       </label>
       <button type="submit">Update Status</button>

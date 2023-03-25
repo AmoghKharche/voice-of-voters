@@ -135,9 +135,9 @@ function RegisterComplaint() {
 		<input type="file" id="image" name="image" accept="image/*" />
 
 		<input type="submit" value="Submit"></input>
-      </form>
 <div className="ticket"> 
       {ticketId && <p>Ticket ID: {ticketId}</p>}</div>
+      </form>
     </>
   );
 }
