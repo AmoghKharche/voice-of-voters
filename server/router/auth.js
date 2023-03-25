@@ -219,7 +219,7 @@ router.get("/track-complaint", (req, res) => {
 //localhost:5000/announcements
 //if you put it another route it will hold trailing endpoint
 
-router.get("/announcements", authenticate, (req, res) => {
+router.get("/announcements",  (req, res) => {
   console.log("Hello");
   res.send(req.rootUser);
 });
