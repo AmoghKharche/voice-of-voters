@@ -46,7 +46,7 @@ function RegisterComplaint() {
       window.alert("Complaint Did Not Register");
       console.log("Complaint Did not Register");
     } else {
-      window.alert("Complaint Registered");
+      // window.alert("Complaint Registered");
       console.log("Complaint Registered");
       setTicketId(data.ticketId);
 

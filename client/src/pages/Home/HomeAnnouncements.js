@@ -3,7 +3,7 @@ import Ads1 from "../../assets/11.jpg";
 import Ads2 from "../../assets/22.jpg";
 import Ads3 from "../../assets/33.jpg";
 import Ads4 from "../../assets/img123.jpg";
-import Ads5 from "../../assets/33.jpg";
+import Ads5 from "../../assets/img1234.jpg";
 
 const Announcements = () => {
   const announcementsInfoData = [
@@ -28,9 +28,9 @@ const Announcements = () => {
       text: "25% Discount on all sweets",
     },
     {
-      image: Ads3,
-      title: "Fashion",
-      text: "Fashion today, Fashion Tomorrow",
+      image: Ads5,
+      title: "Divine Jewellery",
+      text: "Find Great Deal at the Outlet",
     },
 
   ];
