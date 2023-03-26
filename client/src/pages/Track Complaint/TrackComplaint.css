@@ -1,64 +1,80 @@
+
 .track-complaint-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 50px;
-  }
-  
-  .track-complaint-container h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  label {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-  }
-  
-  input {
-    padding: 10px;
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-    border: none;
-    border-bottom: 2px solid #ccc;
-    width: 300px;
-    text-align: center;
-  }
-  
-  button {
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .complaint-details {
-    margin-top: 20px;
-    padding: 20px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    width: 400px;
-    text-align: left;
-  }
-  
-  .complaint-details p {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-  }
-  
-  .error-message {
-    color: red;
-    font-size: 1.2rem;
-    margin-top: 20px;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #e6e6e6;
+}
+
+.track-complaint-container h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.track-complaint-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+.track-complaint-container label {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.track-complaint-container input[type="text"] {
+  padding: 1rem;
+  font-size: 1.2rem;
+  border: none;
+  border-bottom: 2px solid #d9d9d9;
+  margin-bottom: 2rem;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  outline: none;
+  transition: all 0.3s;
+}
+
+.track-complaint-container input[type="text"]:focus {
+  border-bottom-color: #008080;
+}
+
+.track-complaint-container button {
+  padding: 1rem 1.5rem;
+  font-size: 1.2rem;
+  background-color: #008080;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.track-complaint-container button:hover {
+  background-color: #006666;
+  transform: scale(1.1);
+}
+
+/* Style for the complaint details container */
+.complaint-details {
+  margin-top: 2rem;
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
+  padding: 1rem;
+  width: 100%;
+  max-width: 500px;
+}
+
+.complaint-details p {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.complaint-details strong {
+  font-weight: bold;
+}

@@ -57,78 +57,76 @@ function RegisterComplaint() {
   return (
     <>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
-        <div className="input-field">
-          <label htmlFor="name">Name:</label>
-          <input
-            type="text"
-            name="name"
-            value={user.name}
-            onChange={handleInput}
-            disabled={isAnonymous}
-          />
-          <div className="anonymous-toggle">
-            <label htmlFor="anonymous-toggle">Make anonymous:</label>
+        <div class="form-body">
+          <div className="input-field">
+            <label htmlFor="name">Name:</label>
             <input
-              type="checkbox"
-              id="anonymous-toggle"
-              checked={isAnonymous}
-              onChange={(e) => setIsAnonymous(e.target.checked)}
+              type="text"
+              name="name"
+              value={user.name}
+              onChange={handleInput}
+              disabled={isAnonymous}
+            />
+            <div className="anonymous-toggle">
+              <label htmlFor="anonymous-toggle">Make anonymous:</label>
+              <input
+                type="checkbox"
+                id="anonymous-toggle"
+                checked={isAnonymous}
+                onChange={(e) => setIsAnonymous(e.target.checked)}
+              />
+            </div>
+          </div>
+          <div className="input-field">
+            <label htmlFor="address">Address:</label>
+            <input
+              type="text"
+              name="address"
+              value={user.address}
+              onChange={handleInput}
             />
           </div>
+          <div className="input-field">
+            <label htmlFor="complaint">Complaint:</label>
+            <textarea
+              name="complaint"
+              value={user.complaint}
+              onChange={handleInput}
+            />
+          </div>
+          <div className="input-field">
+            <label htmlFor="ward">Ward:</label>
+            <input
+              type="number"
+              name="ward"
+              value={user.ward}
+              onChange={handleInput}
+            />
+          </div>
+          <div className="input-field">
+            <label htmlFor="tag">Tag:</label>
+            <select
+              type="text"
+              name="tag"
+              value={user.tag}
+              onChange={handleInput}
+            >
+              
+                <option value="">Select a tag</option>
+                <option value="Water Department">Water Department</option>
+                <option value="Garbage Department">Garbage Department</option>
+                <option value="Electricity Department">Electricity Department</option>
+                <option value="Roads Department">Roads Department</option>
+                <option value="Other"> Other</option>
+              </select></div>
+          
+              <label for="image">Image:</label>
+              <input type="file" id="image" name="image" accept="image/*" />
+          
+              <input type="submit" value="Submit"></input>
+          <div className="ticket"> 
+                {ticketId && <p>Ticket ID: {ticketId}</p>}</div>
         </div>
-
-        <div className="input-field">
-          <label htmlFor="address">Address:</label>
-          <input
-            type="text"
-            name="address"
-            value={user.address}
-            onChange={handleInput}
-          />
-        </div>
-
-        <div className="input-field">
-          <label htmlFor="complaint">Complaint:</label>
-          <textarea
-            name="complaint"
-            value={user.complaint}
-            onChange={handleInput}
-          />
-        </div>
-
-        <div className="input-field">
-          <label htmlFor="ward">Ward:</label>
-          <input
-            type="number"
-            name="ward"
-            value={user.ward}
-            onChange={handleInput}
-          />
-        </div>
-
-        <div className="input-field">
-          <label htmlFor="tag">Tag:</label>
-          <select
-            type="text"
-            name="tag"
-            value={user.tag}
-            onChange={handleInput}
-          >
-            
-			<option value="">Select a tag</option>
-			<option value="Water Department">Water Department</option>
-			<option value="Garbage Department">Garbage Department</option>
-			<option value="Electricity Department">Electricity Department</option>
-			<option value="Roads Department">Roads Department</option>
-			<option value="Other"> Other</option>
-		</select></div>
-
-		<label for="image">Image:</label>
-		<input type="file" id="image" name="image" accept="image/*" />
-
-		<input type="submit" value="Submit"></input>
-<div className="ticket"> 
-      {ticketId && <p>Ticket ID: {ticketId}</p>}</div>
       </form>
     </>
   );

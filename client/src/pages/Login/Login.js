@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
-import { UserContext } from "../../App";
+
 import {
   MDBBtn,
   MDBContainer,
@@ -14,7 +14,7 @@ import {
 import { Link } from "react-router-dom";
 
 function Login() {
-  const { state, dispatch } = useContext(UserContext);
+  
 
   const navigate = useNavigate();
   const [voterid, setVoterid] = useState("");
@@ -23,7 +23,7 @@ function Login() {
   const loginUser = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("/login", {
+    const res = await fetch("http://localhost:5000/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +37,7 @@ function Login() {
     if (res.status === 401) {
       window.alert("Invalid Credentials");
     } else {
-      dispatch({ type: "USER", payload: true });
+
       console.log(res);
       window.alert("Login Successful");
       window.location.href = "/";

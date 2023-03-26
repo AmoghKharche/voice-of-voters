@@ -9,6 +9,8 @@ import CorporatorRegister from "./pages/Corporator/CorporatorRegister";
 import CorporatorDashboard from "./pages/Corporator/CorporatorDashboard";
 import Login from "./pages/Login/Login";
 import Logout from "./pages/Logout";
+import KnowYourCorporator from "./pages/Home/KnowYourCorporator";
+import Mumbai from "./pages/KnowYourWard/Mumbai"
 import { createContext, useReducer } from "react";
 import { initialState, reducer } from "./reducer/UseReducer";
 import Navbar from "./components/Navbar";
@@ -29,9 +31,10 @@ const Routing = () => {
         <Route path="/corporator/login" element={<CorporatorLogin />} />
         <Route path="/corporator/register" element={<CorporatorRegister />} />
         <Route path="/corporator/dashboard" element={<CorporatorDashboard />} />
-
+        <Route path="/ward/mumbai" element={<Mumbai/>}/>
         <Route path="/announcements" element={<Announcements />} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="/knowyourcorporator" element={<KnowYourCorporator/>}/>
         <Route path="*" element={<Navigate to={"/"} />} />
       </Routes>
     </BrowserRouter>

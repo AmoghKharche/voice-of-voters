@@ -1,26 +1,27 @@
 import React from "react";
-// import Ads1 from "../Assets/11.jpg";
-// import Ads2 from "../Assets/22.jpg";
-// import Ads3 from "../Assets/33.jpg";
+import img1 from "../../assets/img1.jpg";
+import img2 from "../../assets/img2.jpg";
+import img3 from "../../assets/img3.jpg";
 
 const Ward40 = () => {
   const announcementsInfoData = [
     {
-    //   image: Ads1,
+      image: img1,
       title: "Polio Campaign",
       text: "Date: 30 March 2023.At GaonDevi Ground",
     
     },
     {
-    //   image: Ads2,
-      title: "BigBazar",
-      text: "Your Comfort our Priority ",
+      image: img2,
+      title: "Job Fair",
+      text: "Get Hired. Attend the Fair ",
     },
     {
-    //   image: Ads3,
-      title: "Fashion",
-      text: "Fashion today, Fashion Tomorrow",
+      image: img3,
+      title: "Aadhar Update",
+      text: "Apply/Update your Aadhar Card",
     },
+    
 
   ];
 

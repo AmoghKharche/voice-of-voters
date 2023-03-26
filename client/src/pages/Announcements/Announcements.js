@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./Announcements.css"
 import Ward40 from "./Ward40"
+import Ward41 from "./Ward41"
+import Ward42 from "./Ward42"
 function Announcements() {
   const navigate = useNavigate();
 
@@ -16,11 +18,9 @@ function Announcements() {
       case 'Ward 40':
         return <Ward40/>;
       case 'Ward 41':
-        return <div>
-          Hello World
-        </div>;
+        return <Ward41/>
       case 'Ward 42':
-        return <p>Information for Option 3</p>;
+        return <Ward42/>
       default:
         return null;
     }

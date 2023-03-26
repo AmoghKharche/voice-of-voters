@@ -1,23 +1,43 @@
 import React from "react";
+import Ads1 from "../../assets/11.jpg";
+import Ads2 from "../../assets/22.jpg";
+import Ads3 from "../../assets/33.jpg";
+import Ads4 from "../../assets/img123.jpg";
+import Ads5 from "../../assets/33.jpg";
+
 const Announcements = () => {
   const announcementsInfoData = [
     {
-      title: "Electricity",
-      text: "Lorem ipsum dolor sit amet consectetur. Maecenas orci et sagittis duis elementum interdum facilisi bibendum.",
+      image: Ads1,
+      title: "Real Estate",
+      text: "Making your dream home a reality !",
     },
     {
-      title: "Garbage",
-      text: "Lorem ipsum dolor sit amet consectetur. Maecenas orci et ",
+      image: Ads2,
+      title: "BigBazar",
+      text: "Your Comfort our Priority ",
     },
     {
-      title: "Water",
-      text: "Lorem ipsum dolor sit amet consectetur. Maecenas orci et lorem ipsum",
+      image: Ads3,
+      title: "Fashion",
+      text: "Fashion today, Fashion Tomorrow",
     },
+    {
+      image: Ads4,
+      title: "Kailash Sweets",
+      text: "25% Discount on all sweets",
+    },
+    {
+      image: Ads3,
+      title: "Fashion",
+      text: "Fashion today, Fashion Tomorrow",
+    },
+
   ];
 
   return (
     <div className="Announcements-container">
-      <h1>"Make your voice heard - Advertise on our platform!"</h1>
+      <h1>ADVERTISE ON OUR PLATFORM!</h1>
       <div className="Announcements-cards-container">
         {announcementsInfoData.map((data, index) => (
           <div key={index} className="Announcements-card">
@@ -32,3 +52,4 @@ const Announcements = () => {
 };
 
 export default Announcements;
+
