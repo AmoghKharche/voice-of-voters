@@ -20,7 +20,7 @@ body {
 }
 
 body {
-  background-color: #f6f6f6;
+  background-color: #FFFFFF;
 }
 
 nav {
@@ -60,25 +60,42 @@ nav {
   font-size: 1.5rem;
   cursor: pointer;
 }
-.home-container{
-  margin-left: 65px;
-}
 .home-banner-container {
   position: relative;
   display: flex;
-  padding-top: 3rem;
-  margin-right: 100px;
+  padding-top: 10rem;
 }
-.home-bannerImage-container {
+/* .home-bannerImage-container {
   position: absolute;
-  top: -100px;
-  right: -170px;
+  top: 100px;
+  right: 170px;
   z-index: -2;
-  max-width: 700px;
+  max-width: 750px;
+} */
+
+.home-banner-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
-.home-image-section {
-  max-width: 600px;
+
+.home-text-section {
   flex: 1;
+  padding: 1rem;
+}
+
+.home-image-section {
+ 
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  max-width: 40%;
+}
+
+.home-image-section img {
+  max-width: 80%;
+
+  height: auto;
 }
 .home-text-section {
   flex: 1;
@@ -86,12 +103,15 @@ nav {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  margin-left: 50px;
+  margin-top: -150px;
 }
 .primary-heading {
-  font-size: clamp(1rem, 3vw, 2rem); 
+  font-size: 3rem; 
   color: #4c4c4c;
-  /* line-height: 5rem; */
   max-width: 700px;
+  color:  #FFB200;
+  margin-top: -25px;
 }
 .primary-text {
   font-size: clamp(1rem, 3vw, 1.5rem);
@@ -236,13 +256,15 @@ nav {
 }
 
 .work-section-wrapper {
-  margin-top: 15rem;
+  margin-top: 25rem;
 }
 .work-section-top p {
+ 
   text-align: center;
   max-width: 600px !important;
 }
 .work-section-top h1 {
+  margin-top: -50px;
   max-width: 700px !important;
 }
 .work-section-top {
@@ -250,6 +272,8 @@ nav {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+ 
 }
 .work-section-info {
   width: 290px;
@@ -264,12 +288,13 @@ nav {
   border-radius: 1rem;
   color: #505050;
   margin: 1rem 2rem;
+  
 }
 .work-section-info h2 {
   margin: 1rem 0rem;
 }
 .work-section-bottom {
-  margin-top: 5rem;
+  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -291,9 +316,12 @@ nav {
     font-size: 1rem;
   }
   .home-bannerImage-container {
-    max-width: 600px;
+     max-width: 600px; 
+
+    }
+    
   }
-}
+
 @media (max-width: 800px) {
   .nav-logo-container {
     max-width: 140px;
@@ -305,7 +333,7 @@ nav {
     display: flex;
   }
   .home-bannerImage-container {
-    max-width: 450px;
+     max-width: 800px;/* 450 before */
   }
   .home-banner-container,
   .about-section-container {
@@ -324,6 +352,7 @@ nav {
   .primary-heading {
     text-align: center;
     max-width: 90%;
+
   }
   .primary-text {
     text-align: center;
@@ -420,14 +449,19 @@ nav {
   margin: 20px;
   max-width: 400px; 
   height: 500px;
-
+;
   padding: 20px;
   border-radius: 10px; 
   
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease-in-out;
 }
+.Announcements-card img{
+  max-width: 100%;
+  max-height:170px ;
+  margin-bottom: 1rem;
 
+}
 .Announcements-card:hover {
   transform: scale(1.05);
 }
@@ -439,21 +473,26 @@ nav {
 
 .Announcements-card p {
   font-size: 16px;
-  margin-top: 10px;
+  margin-top: -8px;
   text-align: center;
 }
 .Announcements-container {
-  padding-top: 200px;
+  padding-top: 80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+.Announcements-container h1{
+font-size: 3rem;
+margin-top: 25px;
+}
 .Announcements-cards-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  padding-top: 100px;
+  justify-content: center;
+  padding-top: 50px;
+  content: cover;
 }
 
 .Announcements-card {
@@ -463,6 +502,7 @@ nav {
   padding: 20px;
   box-sizing: border-box;
   border-radius: 5px;
+  height:300px;
 }
 
 .Announcements-card:not(:nth-child(3n)) {
@@ -472,6 +512,7 @@ nav {
 .wards-cards-container {
   display: flex;
   flex-wrap: wrap;
+  padding-top: 50px;
   justify-content: space-between;
 }
 
@@ -480,14 +521,43 @@ nav {
   margin-bottom: 32px;
 }
 .wards-container {
-  padding: 100px 0;
-  padding-top: 200px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-left: 80px;
-  margin-right: 80px;
+
 }
 
+.home-bannerImage-container img {
+  width: 700px;
+  height: 950px;
+  position: absolute;
+  top: -220px;
+  right: -60px;
+  z-index: -2;
+  max-width: 750px;
+}
+.announcements-container-contain{
+  text-align: center;
+}
+
+.announcements-cards-container-contain {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.announcements-card-card{
+  flex-basis: 30%;
+  margin: 1rem;
+}
+
+.announcements-card-card img {
+  width: 100%;
+}
+
+ 
 

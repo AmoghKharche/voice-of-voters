@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import PickMeals from "../../assets/pick-meals-image.png";
 import ChooseMeals from "../../assets/choose-image.png";
 import DeliveryMeals from "../../assets/delivery-image.png";
@@ -8,48 +9,50 @@ const RegisterComplaint = () => {
     {
       image: PickMeals,
       title: "Electricity",
-      text: "Lorem ipsum dolor sit amet consectetur. Maecenas orci et sagittis duis elementum interdum facilisi bibendum.",
+      text: "Any kind of complaints realted to electricity.",
     },
     {
       image: ChooseMeals,
       title: "Garbage",
-      text: "Lorem ipsum dolor sit amet consectetur. Maecenas orci et ",
+      text: "Complaint about garbage issues in your locality.",
     },
     {
       image: DeliveryMeals,
       title: "Water",
-      text: "Lorem ipsum dolor sit amet consectetur. Maecenas orci et lorem ipsum",
+      text: "Got any water supply issues post it here.",
     },
     {
       image: DeliveryMeals,
       title: "Roads",
-      text: "Lorem ipsum dolor sit amet consectetur. Maecenas orci et lorem ipsum",
+      text: "Poor quality of roads? Complaint here.",
     },
     {
       image: DeliveryMeals,
-      title: "Women Safety",
-      text: "Lorem ipsum dolor sit amet consectetur. Maecenas orci et lorem ipsum",
+      title: "Sewage",
+      text: "Issues regarding sewage? Get it resolved here.",
     },
     {
       image: DeliveryMeals,
       title: "Others",
-      text: "Lorem ipsum dolor sit amet consectetur. Maecenas orci et lorem ipsum",
+      text: "Any kind of complaints related to your locality.",
     },
   ];
   return (
     <div className="work-section-wrapper">
       <div className="work-section-top">
-        <h1 className="primary-heading">Register Complaint</h1>
+        <h1 className="primary-heading">REGISTER COMPLAINT</h1>
       </div>
       <div className="work-section-bottom">
         {registerComplaintInfoData.map((data) => (
-          <div className="work-section-info" key={data.title}>
-            <div className="info-boxes-img-container">
-              <img src={data.image} alt="" />
+          <Link to="/register-complaint" key={data.title}>
+            <div className="work-section-info">
+              <div className="info-boxes-img-container">
+                <img src={data.image} alt="" />
+              </div>
+              <h2>{data.title}</h2>
+              <p>{data.text}</p>
             </div>
-            <h2>{data.title}</h2>
-            <p>{data.text}</p>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

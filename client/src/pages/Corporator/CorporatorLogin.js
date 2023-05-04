@@ -10,7 +10,7 @@ function CorporatorLogin() {
   const handleCorporator = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("/corporator/login", {
+    const res = await fetch("http://localhost:5000/corporator/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -58,7 +58,7 @@ function CorporatorLogin() {
         <div class="form-group">
           <label for="ward">Ward:</label>
           <input
-            type="text"
+            type="number"
             id="ward"
             name="ward"
             required

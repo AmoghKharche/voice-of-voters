@@ -55,6 +55,10 @@ const Navbar = () => {
       text: "Track Complaint",
       href: "/track-complaint",
     },
+    {
+      text: "Login",
+      href: "/login",
+    },
   ];
   return (
     <nav>
@@ -81,10 +85,10 @@ const Navbar = () => {
           <List>
             {menuOptions.map((item) => (
               <ListItem key={item.text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>{item.icon}</ListItemIcon>
-                  <ListItemText primary={item.text} />
-                </ListItemButton>
+                <ListItemButton component="a" href={item.href}>
+  <ListItemIcon>{item.icon}</ListItemIcon>
+  <ListItemText primary={item.text} />
+</ListItemButton>
               </ListItem>
             ))}
           </List>

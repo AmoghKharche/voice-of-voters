@@ -18,7 +18,7 @@ const complaintSchema = new mongoose.Schema(
     },
     ward: { type: Number, required: true },
     tag: { type: String, required: true },
-    status: { type: String, required: true, default: 'complaint-received' },
+    status: { type: String, required: true, default: 'Complaint-Received' },
     ticketId: { type: String, default: uid(), unique: true },
   },
   { timestamps: true }

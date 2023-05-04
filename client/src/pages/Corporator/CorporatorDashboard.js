@@ -1,22 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { fetchComplaints } from "../../api/api";
 import ComplaintStatusForm from "./ComplaintStatusForm";
+import "./CorporatorDashboard.css"
 
 const CorporatorDashboard = () => {
   const [complaints, setComplaints] = useState([]);
-
+  const [reFetch,setReFetch] = useState(false)
+  // useEffect(() => {
+  //   const getComplaints = async () => {
+  //     const fetchedComplaints = await fetchComplaints();
+  //     setComplaints(fetchedComplaints || {});
+  //   };
+  //   getComplaints();
+  // }, []);
   useEffect(() => {
     const getComplaints = async () => {
-      const complaints = (await fetchComplaints()) || {};
+      const complaints = (await fetchComplaints()) 
+      ;
       setComplaints(complaints);
     };
     getComplaints();
-  }, [complaints]);
+  }, [reFetch]);
 
   return (
+    
     <div>
       <h1>Corporator Dashboard</h1>
-      <ComplaintStatusForm complaints={complaints} />
+      <ComplaintStatusForm complaints={complaints} setReFetch={setReFetch} />
       <h2>Complaints</h2>
       <table className="complaints-table">
         <thead>
